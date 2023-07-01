@@ -1,0 +1,85 @@
+.body{
+  background-image: url('site-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  height: 4000px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+.random-btn {
+  background: linear-gradient(
+    92.23deg,
+    #ff56f6 21.43%,
+    #b936ee 50.63%,
+    #3bace2 100%,
+    #406aff 117.04%
+  );
+  box-shadow: 0px 4.42184px 107.23px rgba(255, 86, 246, 0.51);
+  border-radius: 100px;
+  color: white;
+}
+
+.random-btn:hover {
+  background: linear-gradient(
+    92.23deg,
+    #406aff 21.43%,
+    #3bace2 50.63%,
+    #b936ee 100%,
+    #ff56f6 117.04%
+  );
+}
+.me{
+  background-image: linear-gradient(
+    92.23deg,
+    #ff56f6 21.43%,
+    #b936ee 50.63%,
+    #3bace2 100%,
+    #406aff 117.04%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.me2{
+  background-image: linear-gradient(
+    92.23deg,
+    #406aff 21.43%,
+    #3bace2 50.63%,
+    #b936ee 100%,
+    #ff56f6 117.04%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.me3{
+  text-decoration: none;
+}
+.me3:hover{
+  color: navy;
+}
+.active {
+    background: linear-gradient(
+      92.23deg,
+      #406aff 21.43%,
+      #3bace2 50.63%,
+      #b936ee 100%,
+      #ff56f6 117.04%
+    );
+  }
+  
+  .active {
+    color: #fff;
+    padding: 1rem;
+    border-radius: 50%;
+  }
+  .scroll-item{
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 17px 0 rgba(0, 0, 0, 0.75);
+    background-size: cover;
+    background-position: top;
+    transition: all 2s ease;
+}
+.scroll-item:hover{
+  background-position: bottom;
+}
