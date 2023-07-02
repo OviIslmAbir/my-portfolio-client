@@ -3,9 +3,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-  height: 5000px;
+  height: 100%;
   color: white;
   font-family: 'Poppins', sans-serif;
+  padding-bottom: 200px;
 }
 .random-btn {
   background: linear-gradient(

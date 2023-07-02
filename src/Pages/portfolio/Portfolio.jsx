@@ -56,29 +56,29 @@ export default function Portfolio() {
   const [htmlProjects, setHtmlProjects] = useState([])
 
   useEffect(() =>{
-    fetch('http://localhost:5000/projects')
+    fetch('https://my-portfolio-server-oviislmabir.vercel.app/projects')
       .then(res => res.json())
       .then(data => setProjects(data))
   }, [])
 
   useEffect(() =>{
-    fetch('http://localhost:5000/reactProjects')
+    fetch('https://my-portfolio-server-oviislmabir.vercel.app/reactProjects')
       .then(res => res.json())
       .then(data => setReactProjects(data))
   }, [])
   useEffect(() =>{
-    fetch('http://localhost:5000/jsProjects')
+    fetch('https://my-portfolio-server-oviislmabir.vercel.app/jsProjects')
       .then(res => res.json())
       .then(data => setJsProjects(data))
   }, [])
   useEffect(() =>{
-    fetch('http://localhost:5000/htmlProjects')
+    fetch('https://my-portfolio-server-oviislmabir.vercel.app/htmlProjects')
       .then(res => res.json())
       .then(data => setHtmlProjects(data))
   }, [])
 
   const showDetail = (project) => {
-    fetch(`http://localhost:5000/projects/${project.id}`)
+    fetch(`https://my-portfolio-server-oviislmabir.vercel.app/projects/${project.id}`)
     .then(res => res.json())
     .then(data => setModel(data))
   }
@@ -87,7 +87,6 @@ export default function Portfolio() {
 
   const handleSeeMoreClick = () => {
       setNumToShow(projects.length);
-      setNumToShow(reactProjects.length);
   };
   const handleSeeLessClick = () => {
       setNumToShow(2);
@@ -95,9 +94,11 @@ export default function Portfolio() {
 
 
   return (
-    <motion.div variants={fadeIn('left', 0.3)} initial="hidden" whileInView={'show'} viewport={{once:false, amount: 0.3}} className='container pt-5' style={{marginBottom:"200px"}} id='portfolio'>
-        <h2  style={{fontFamily:"Orbitron"}} className='text-center mb-3 mb-lg-4 text-uppercase'><span className='me'>Portfolio</span></h2>
-        <Box sx={{ width: '100%' }}>
+    <div>
+    <div className='container pt-5' style={{marginBottom:"240px"}} id='portfolio'>
+        <motion.h2 variants={fadeIn('left', 0.3)} initial="hidden" whileInView={'show'} viewport={{once:false, amount: 0.3}} style={{fontFamily:"Orbitron"}} className='text-center mb-3 mb-lg-4 text-uppercase'><span className='me'>Portfolio</span></motion.h2>
+        <motion.Box variants={fadeIn('left', 0.3)} initial="hidden" whileInView={'show'} viewport={{once:false, amount: 0.3}} sx={{ width: '100%' }}>
+          
             <Box>
                 <Tabs value={value}  onChange={handleChange} aria-label="basic tabs example" centered  indicatorColor="primary">
                 <Tab  className='me2' label="All Projects" {...a11yProps(0)} />
@@ -107,7 +108,7 @@ export default function Portfolio() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <div className='row  mx-lg-3'>
+                <div  className='row  mx-lg-3'>
                     {
                         projects.slice(0 , numToShow).map(project =>             
                         <div className="col-lg-6">
@@ -186,7 +187,7 @@ export default function Portfolio() {
               }
               </div>
             </TabPanel>
-        </Box>
+        </motion.Box>
         <div className="modal fade" id="myModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
@@ -206,6 +207,7 @@ export default function Portfolio() {
                 </div>
             </div>
         </div>
-    </motion.div>
+    </div>
+    </div>
   );
 }
