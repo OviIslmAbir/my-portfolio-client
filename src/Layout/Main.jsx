@@ -8,14 +8,13 @@ import Portfolio from '../Pages/portfolio/portfolio';
 
 const Main = () => {
     return (
-        // style={{backgroundColor:"#160F30", height:"1000px", color:"white"}}
         <div className='body' >
             <Navbar></Navbar>
             <Home></Home>
             <About></About>
             <Skills></Skills>
             <Portfolio></Portfolio>
-            {/* <Contact></Contact> */}
+            <Contact></Contact>
         </div>
     );
 };

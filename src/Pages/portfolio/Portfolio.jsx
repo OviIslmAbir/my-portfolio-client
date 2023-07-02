@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import { FaLink } from 'react-icons/fa';
 import { BsServer } from 'react-icons/bs';
 import { HiCode } from 'react-icons/hi';
+import { motion } from "framer-motion"
+import {fadeIn} from '../../Shared/variants'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -50,6 +52,8 @@ export default function Portfolio() {
   const [projects, setProjects] = useState([])
   const [model, setModel] = useState({})
   const [reactProjects, setReactProjects] = useState([])
+  const [jsProjects, setJsProjects] = useState([])
+  const [htmlProjects, setHtmlProjects] = useState([])
 
   useEffect(() =>{
     fetch('http://localhost:5000/projects')
@@ -62,6 +66,16 @@ export default function Portfolio() {
       .then(res => res.json())
       .then(data => setReactProjects(data))
   }, [])
+  useEffect(() =>{
+    fetch('http://localhost:5000/jsProjects')
+      .then(res => res.json())
+      .then(data => setJsProjects(data))
+  }, [])
+  useEffect(() =>{
+    fetch('http://localhost:5000/htmlProjects')
+      .then(res => res.json())
+      .then(data => setHtmlProjects(data))
+  }, [])
 
   const showDetail = (project) => {
     fetch(`http://localhost:5000/projects/${project.id}`)
@@ -69,10 +83,20 @@ export default function Portfolio() {
     .then(data => setModel(data))
   }
 
+  const [numToShow, setNumToShow] = useState(2);
+
+  const handleSeeMoreClick = () => {
+      setNumToShow(projects.length);
+      setNumToShow(reactProjects.length);
+  };
+  const handleSeeLessClick = () => {
+      setNumToShow(2);
+  };
+
 
   return (
-    <div className='container pt-5' id='portfolio'>
-        <h2 style={{fontFamily:"Orbitron"}} className='text-center mb-3 mb-lg-4 text-uppercase'><span className='me'>Portfolio</span></h2>
+    <motion.div variants={fadeIn('left', 0.3)} initial="hidden" whileInView={'show'} viewport={{once:false, amount: 0.3}} className='container pt-5' style={{marginBottom:"200px"}} id='portfolio'>
+        <h2  style={{fontFamily:"Orbitron"}} className='text-center mb-3 mb-lg-4 text-uppercase'><span className='me'>Portfolio</span></h2>
         <Box sx={{ width: '100%' }}>
             <Box>
                 <Tabs value={value}  onChange={handleChange} aria-label="basic tabs example" centered  indicatorColor="primary">
@@ -83,9 +107,9 @@ export default function Portfolio() {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <div className='row mt-3'>
+                <div className='row  mx-lg-3'>
                     {
-                        projects.map(project =>             
+                        projects.slice(0 , numToShow).map(project =>             
                         <div className="col-lg-6">
                            <div className="card mb-3" style={{height:"280px"}}> 
                                <div className="scroll-item h-100" style={{backgroundImage: `url(${project.img})`}}>
@@ -96,12 +120,20 @@ export default function Portfolio() {
                            </div>
                        </div>)
                     }
+                    <div className='text-center'>
+                      {numToShow < projects.length ? (
+                        <button onClick={handleSeeMoreClick} className="btn random-btn px-3">Show more</button> 
+                    ):
+                    (
+                       <button onClick={handleSeeLessClick} className="btn random-btn px-3">Show less</button> 
+                    )}
+                    </div>
                 </div>
             </TabPanel>
             <TabPanel value={value} index={1}>
-               <div className='row mt-3'>
+               <div className='row mx-lg-3'>
                     {
-                        reactProjects.map(reactProject =>             
+                        reactProjects.slice(0 , numToShow).map(reactProject =>             
                         <div className="col-lg-6">
                            <div className="card mb-3" style={{height:"280px"}}> 
                                <div className="scroll-item h-100" style={{backgroundImage: `url(${reactProject.img})`}}>
@@ -112,13 +144,47 @@ export default function Portfolio() {
                            </div>
                        </div>)
                     }
+                     <div className='text-center'>
+                      {numToShow < reactProjects.length ? (
+                        <button onClick={handleSeeMoreClick} className="btn random-btn px-3">Show more</button> 
+                    ):
+                    (
+                       <button onClick={handleSeeLessClick} className="btn random-btn px-3">Show less</button> 
+                    )}
+                    </div>
                 </div>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+            <div className='row mx-lg-3'>
+                    {
+                        jsProjects.map(jsProject =>             
+                        <div className="col-lg-6">
+                           <div className="card mb-3" style={{height:"280px"}}> 
+                               <div className="scroll-item h-100" style={{backgroundImage: `url(${jsProject.img})`}}>
+                                   <div className="card-body d-flex justify-content-end align-items-end h-100">
+                                       <button data-bs-toggle="modal" data-bs-target="#myModel" className='btn random-btn text-white px-3' onClick={()=>showDetail(jsProject)}>View details</button>
+                                   </div>
+                               </div>      
+                           </div>
+                       </div>)
+                    }
+                </div>
             </TabPanel>
             <TabPanel value={value} index={3}>
-                Item Three
+              <div className='row mx-lg-3'>
+                {
+                          htmlProjects.map(htmlProject =>             
+                          <div className="col-lg-6">
+                            <div className="card mb-3" style={{height:"280px"}}> 
+                                <div className="scroll-item h-100" style={{backgroundImage: `url(${htmlProject.img})`}}>
+                                    <div className="card-body d-flex justify-content-end align-items-end h-100">
+                                        <button data-bs-toggle="modal" data-bs-target="#myModel" className='btn random-btn text-white px-3' onClick={()=>showDetail(htmlProject)}>View details</button>
+                                    </div>
+                                </div>      
+                            </div>
+                        </div>)
+              }
+              </div>
             </TabPanel>
         </Box>
         <div className="modal fade" id="myModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -134,12 +200,12 @@ export default function Portfolio() {
                         <div className='d-flex justify-content-between'>
                             <p><a target='blank' className='me3 btn-link fw-bold d-flex align-items-center gap-2' href={model.liveLink}><FaLink/><span>Live site</span></a></p>
                             <p><a target='blank' className='me3 btn-link fw-bold d-flex align-items-center gap-2' href={model.clintSiteCode}><HiCode/><span>Clint site code</span></a></p>
-                            <p><a target='blank' className='me3 btn-link fw-bold d-flex align-items-center gap-2' href={model.serverSiteCode}><BsServer/><span>Server site code</span></a></p>
+                            {model.serverSiteCode ? <p><a target='blank' className='me3 btn-link fw-bold d-flex align-items-center gap-2' href={model.serverSiteCode}><BsServer/><span>Server site code</span></a></p> : <></>}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </motion.div>
   );
 }

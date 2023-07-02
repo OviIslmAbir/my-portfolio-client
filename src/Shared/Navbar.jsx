@@ -7,9 +7,9 @@ import {Tooltip} from 'react-tippy';
   
 const Navbar = () => {
     return (
-        <nav style={{bottom:"2rem", zIndex:"4"}} className='position-fixed w-100 overflow-hidden '>
+        <nav style={{bottom:"2rem", zIndex:"4"}} className='position-fixed w-100 overflow-hidden'>
             <div  className='container mx-auto'>
-                 <div style={{backgroundColor:"rgba(0, 0, 0, 0.2)", height:"82px", borderRadius:"100px", maxWidth:"460px"}} className='w-100 mx-auto d-flex justify-content-between px-5 align-items-center'>
+                 <div style={{backgroundImage: "url('site-bg.jpg')", height:"82px", borderRadius:"100px", maxWidth:"460px", backgroundRepeat:"no-repeat", backgroundSize:"cover"}} className='w-100 mx-auto d-flex justify-content-between px-5 align-items-center shadow-lg'>
                     <Tooltip
                         title="Home"
                         position="top"
